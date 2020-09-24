@@ -118,35 +118,40 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- 의존성 추가 시작 -->
-		<!-- mysql -->
+		<!-- 의존성 추가 -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.19</version>
 		</dependency>
 
-		<!-- mybatis -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
 			<version>3.5.4</version>
 		</dependency>
 
-		<!-- mybatis-spring -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
 			<version>2.0.4</version>
 		</dependency>
 
-
-		<!-- json 사용하기 위한 필수 서버 라이브러리 -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>2.11.1</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>5.2.9.RELEASE</version>
+		</dependency>
+
+
+		<!-- 의존성 추가 -->
 
 	</dependencies>
 	<build>
