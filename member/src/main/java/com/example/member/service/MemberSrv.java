@@ -17,4 +17,6 @@ public interface MemberSrv {
 	public void setRegisterUpdateOne(MemberVO mvo);
 	
 	public int idCheck(String userid);
+	
+	public void levelChange(MemberVO mvo);
 }

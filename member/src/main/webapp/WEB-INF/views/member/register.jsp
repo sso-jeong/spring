@@ -7,9 +7,10 @@
 	}
 </style>
 <body>
+<img src="${pageContext.request.contextPath}/images/logo.png" alt="" title="" />
 <div class="">
 	<h1>그린컴퓨터 웹사이트 회원가입</h1>
-	<a href="${pageContext.request.contextPath}/member">메인페이지로</a> | 
+	<a href="${pageContext.request.contextPath}">메인페이지로</a> | 
 	<a href="${pageContext.request.contextPath}/member/list">회원목록</a>
 </div>
 <div class="box">
@@ -44,6 +45,7 @@
 
 					}else {
 						$("#check").html("사용할 수 없는 아이디입니다.");
+						$("#userid").val("");
 					}
 				},
 				error : function() {

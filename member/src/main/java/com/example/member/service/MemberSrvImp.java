@@ -44,6 +44,12 @@ public class MemberSrvImp implements MemberSrv {
 		return memberDao.idCheck(userid);
 	}
 
+	@Override
+	public void levelChange(MemberVO mvo) {
+		memberDao.levelChange(mvo);
+		
+	}
+
 }
 
 

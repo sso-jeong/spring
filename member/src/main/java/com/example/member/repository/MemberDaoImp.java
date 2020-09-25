@@ -44,4 +44,10 @@ public class MemberDaoImp implements MemberDao {
 		return sqlSession.selectOne("register.idCheck", userid);
 	}
 
+	@Override
+	public void levelChange(MemberVO mvo) {
+		sqlSession.update("register.levelChange", mvo);
+		
+	}
+
 }
