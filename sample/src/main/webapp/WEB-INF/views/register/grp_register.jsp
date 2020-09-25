@@ -10,7 +10,7 @@
             <form method="post" action="grp_member_insert.html" autocomplete="off">
                 <select name="buseo">
                 </select>
-                <select name="grade">
+                <select name="grade" id="grade">
                 </select>
                 <input type="text" name="userid" id="userid" placeholder="사원번호를 입력하세요." required tabindex="3" />
                 <input type="text" name="username" id="username" placeholder="사원명을 입력하세요." required tabindex="4" />
@@ -34,7 +34,11 @@
 			dataType	: "json",
 			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
 			success 	: function(resData) {
-				alert("성공");
+				//alert("성공");
+				//Controller에서 오는 배열을 json으로 받음 = model
+				$.each(resData, function(key, value) {
+					$("#grade").append("<option value="+value.grade_id+">"+value.grade_name+"</option>");
+				});
 			},
 			error 		: function() {
 				alert("등록된 직급이 없습니다.");
