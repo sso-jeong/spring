@@ -1,0 +1,10 @@
+create table grp_grade(
+grade_id varchar(10) not null,
+grade_name varchar(30) not null
+);
+
+insert into grp_grade values('6', '부장');
+insert into grp_grade values('7', '팀장');
+insert into grp_grade values('8', '과장');
+insert into grp_grade values('9', '대리');
+insert into grp_grade values('10', '사원');
