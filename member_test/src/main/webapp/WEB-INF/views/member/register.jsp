@@ -7,10 +7,9 @@
 	}
 </style>
 <body>
-<img src="${pageContext.request.contextPath}/images/logo.png" alt="" title="" />
 <div class="">
 	<h1>그린컴퓨터 웹사이트 회원가입</h1>
-	<a href="${pageContext.request.contextPath}">메인페이지로</a> | 
+	<a href="${pageContext.request.contextPath}/member">메인페이지로</a> | 
 	<a href="${pageContext.request.contextPath}/member/list">회원목록</a>
 </div>
 <div class="box">
@@ -26,36 +25,37 @@
         </form>
     </div>
 </body>
-<%@ include file = "/WEB-INF/views/member/FOOTER.jsp" %>
 <script>
-	$(function() { // blur : 현재 위치 벗어났을 때
+	$(function() { //blur : 현재 위치에서 벗어났을 때
 		$("#userid").blur(function() {
 
 			var dataForm = {
-				userid:$("#userid").val()
+					userid : $("#userid").val()
 			};
-			
+
 			$.ajax({
-				url : "${pageContext.request.contextPath}/member/idCheck",
-				type : "POST",
-				data : dataForm,
+				url		: "${pageContext.request.contextPath}/member/idCheck",
+				type	: "POST",
+				data	: dataForm,
 				success : function(data) {
-					if(data=="Ok") {
+					if( data == "Ok" ) {
 						$("#check").html("사용할 수 있는 아이디입니다.");
 
-					}else {
+					}else{
 						$("#check").html("사용할 수 없는 아이디입니다.");
 						$("#userid").val("");
 					}
 				},
-				error : function() {
-					alert("시스템오류");
+				error	: function() {
+					alert("시스템 오류");
 				}
 			});
+			
 		});
-
 	});
 </script>
+
+<%@ include file = "/WEB-INF/views/member/FOOTER.jsp" %>
 
 
 

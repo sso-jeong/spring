@@ -27,4 +27,25 @@ public interface MemberSrv {
 	public int setLogin(String userid, String passwd);
 	
 	public MemberVO setSessionLogin(MemberVO mvo, HttpSession session);
+	
+	public void logout(HttpSession session);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

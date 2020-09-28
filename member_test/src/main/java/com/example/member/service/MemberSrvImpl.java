@@ -11,7 +11,7 @@ import com.example.member.model.MemberVO;
 import com.example.member.repository.MemberDao;
 
 @Service
-public class MemberSrvImp implements MemberSrv {
+public class MemberSrvImpl implements MemberSrv {
 	
 	@Autowired
 	MemberDao memberDao;
@@ -49,7 +49,6 @@ public class MemberSrvImp implements MemberSrv {
 	@Override
 	public void levelChange(MemberVO mvo) {
 		memberDao.levelChange(mvo);
-		
 	}
 
 	@Override
@@ -66,8 +65,7 @@ public class MemberSrvImp implements MemberSrv {
 	public MemberVO setSessionLogin(MemberVO mvo, HttpSession session) {
 		MemberVO vo = memberDao.setSessionLogin(mvo);
 		
-		// 세션 생성
-		if ( vo != null ) {
+		if( vo != null ) { //세션 생성
 			session.setAttribute("userid", vo.getUserid());
 			session.setAttribute("username", vo.getUsername());
 			session.setAttribute("level", vo.getLevel());
@@ -76,7 +74,20 @@ public class MemberSrvImp implements MemberSrv {
 		return vo;
 	}
 
+	@Override
+	public void logout(HttpSession session) {
+		session.invalidate();
+		
+	}
 }
+
+
+
+
+
+
+
+
 
 
 

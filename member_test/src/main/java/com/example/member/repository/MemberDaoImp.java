@@ -11,9 +11,9 @@ import com.example.member.model.MemberVO;
 
 @Repository
 public class MemberDaoImp implements MemberDao {
-
+	
 	@Autowired
-	SqlSession sqlSession;
+	SqlSession sqlSession; 
 
 	@Override
 	public void setRegisterOne(MemberVO mvo) {
@@ -48,7 +48,6 @@ public class MemberDaoImp implements MemberDao {
 	@Override
 	public void levelChange(MemberVO mvo) {
 		sqlSession.update("register.levelChange", mvo);
-		
 	}
 
 	@Override
@@ -70,3 +69,14 @@ public class MemberDaoImp implements MemberDao {
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+

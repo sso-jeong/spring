@@ -1,0 +1,25 @@
+use member;
+
+create table member(
+id int not null auto_increment,
+userid varchar(15) not null,
+passwd varchar(12) not null,
+username char(5) not null,
+email varchar(50),
+regdate datetime,
+level int(1) default 1,
+primary key(id)
+);
+
+
+
+
+
+
+
+
+
+
+
+
+

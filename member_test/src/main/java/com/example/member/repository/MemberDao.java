@@ -25,7 +25,21 @@ public interface MemberDao {
 	public int setLogin(String userid, String passwd);
 	
 	public MemberVO setSessionLogin(MemberVO mvo);
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

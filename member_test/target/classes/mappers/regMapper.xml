@@ -35,19 +35,29 @@
 		UPDATE member SET level = #{level} WHERE id = #{id}
 	</update>
 	
-	<select id="getRegisterUpdateOne" parameterType="int" resultType="membervo">
+	<select id="getRegisterUpdateOne" 
+		parameterType="int" resultType="membervo">
 		SELECT * FROM member WHERE id = #{id}
 	</select>
 	
-	<select id="loginCheck" parameterType="hashmap" resultType="int">
-		SELECT COUNT(id) FROM member WHERE userid = #{userid} AND passwd = #{passwd}
+	<select id="loginCheck" parameterType="membervo" resultType="int">
+		SELECT COUNT(id) FROM member 
+		WHERE userid = #{userid} AND passwd = #{passwd}
 	</select>
 	
-	<select id = "sessionLogin" parameterType="membervo" resultType="membervo">
-		SELECT userid, username, level FROM member WHERE userid = #{userid} AND passwd = #{passwd}
+	<select id = "setSessionLogin" parameterType="membervo" resultType="membervo">
+		SELECT userid, username, level FROM member 
+			WHERE userid = #{userid} AND passwd = #{passwd}
 	</select>
 	
 </mapper>
+
+
+
+
+
+
+
 
 
 
