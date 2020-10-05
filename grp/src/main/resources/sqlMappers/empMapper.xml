@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="emp">
+
+	<insert id ="setEmployeeOne" parameterType="empvo">
+		INSERT INTO grp_employee SET 
+		buseo		= #{buseo},
+		grade		= #{grade},
+		userid		= #{userid},
+		username	= #{username},
+		passwd		= #{passwd},
+		regdate		= now()
+	</insert>
+	
+	<select id="loginCheck" parameterType="empvo" resultType="empvo">
+		SELECT * FROM grp_employee 
+		WHERE userid = #{userid} AND passwd = #{passwd}
+	</select>
+
+</mapper>
