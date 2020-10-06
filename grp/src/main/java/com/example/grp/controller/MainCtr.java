@@ -45,18 +45,39 @@ public class MainCtr {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String setRegister(@ModelAttribute MemberVO mvo) {
 		memberSrv.setMember(mvo);
-		return "redirect:/memberList";
+		return "redirect:/login";
 	}
 	
 	@RequestMapping("/memberList") // 회원목록
-	public ModelAndView getMemberList() {
-		List<MemberVO> list = memberSrv.getMemberList();
+	public ModelAndView getMemberList(@RequestParam(defaultValue = "mem_name") String searchOpt, @RequestParam(defaultValue = "") String words) {
+		
+		int count = memberSrv.getMemberCount(searchOpt, words);
+		List<MemberVO> list = memberSrv.getMemberList(searchOpt, words);
 		
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("searchOpt", searchOpt);
+		mav.addObject("words", words);
+		mav.addObject("count", count);
 		mav.addObject("list", list);
 		mav.setViewName("memberList");
 		
 		return mav;
+	}
+	
+	@RequestMapping(value = "/memConfirm", method = RequestMethod.POST)
+	@ResponseBody
+	public String memConfirm(@ModelAttribute MemberVO mvo) {
+		//System.out.println(mvo);
+		memberSrv.setMemConfirm(mvo);
+		return "success";
+	}
+	
+	@RequestMapping(value = "/memLevel", method = RequestMethod.POST)
+	@ResponseBody
+	public String memLevel(@ModelAttribute MemberVO mvo) {
+		//System.out.println(mvo);
+		memberSrv.setMemLevel(mvo);
+		return "success";
 	}
 	
 	@RequestMapping(value = "/idCheck", method = RequestMethod.POST)

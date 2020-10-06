@@ -18,8 +18,20 @@ public class MemberSrv {
 		memberDao.setMember(mvo);
 	}
 	
-	public List<MemberVO> getMemberList(){
-		return memberDao.getMemberList();
+	public List<MemberVO> getMemberList(String searchOpt, String words){
+		return memberDao.getMemberList(searchOpt, words);
+	}
+	
+	public int getMemberCount(String searchOpt, String words){
+		return memberDao.getMemberCount(searchOpt, words);
+	}
+	
+	public void setMemConfirm(MemberVO mvo) {
+		memberDao.setMemConfirm(mvo);
+	}
+	
+	public void setMemLevel(MemberVO mvo) {
+		memberDao.setMemLevel(mvo);
 	}
 	
 	public int idCheck(String memID) {

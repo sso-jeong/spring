@@ -5,8 +5,8 @@
 <body>
 <%@ include file = "/WEB-INF/views/include/MENU.jsp" %>
 <h2>회원로그인</h2>
-
- 	<form id ="frm" method="post">
+	<span id="checkLogin"></span>
+ 	<form id="frm" method="post" action="${pageContext.request.contextPath}/login">
 		아이디 : <input type="text" name="memID" id="memID" /><br />
 		비밀번호 : <input type="text" name="memPwd" id="memPwd" /><br />
 		<button type="button" id="btn">로그인</button>
