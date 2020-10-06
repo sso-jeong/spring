@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+
+	<insert id="setMember" parameterType="membervo">
+		INSERT INTO member SET 
+		mem_id = #{memID},
+		mem_pwd = #{memPwd},
+		mem_name = #{memName},
+		mem_email = #{memEmail},
+		mem_regdate = now()
+	</insert>
+	
+	<select id="getMemberList" resultType="membervo">
+		SELECT
+			mem_num AS memNum,
+			mem_id AS memID, 
+			mem_pwd AS memPwd,
+			mem_name AS memName,
+			mem_email AS memEmail,
+			mem_regdate AS memRegdate,
+			mem_level AS memLevel,
+			mem_confirm AS memConfirm
+		FROM member ORDER BY mem_num DESC
+		<!-- 컬럼명을 model 변수명 지정 -->
+	</select>
+	
+	<select id="idCheck" parameterType="String" resultType="int">
+		SELECT COUNT(mem_id) FROM member WHERE mem_id = #{memID}
+	</select>
+	
+</mapper>
