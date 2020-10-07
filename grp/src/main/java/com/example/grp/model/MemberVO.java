@@ -13,7 +13,7 @@ public class MemberVO {
 	private String memLevel;
 	private String memConfirm;
 	
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 	
 	public int getMemNum() {
 		return memNum;
@@ -65,5 +65,14 @@ public class MemberVO {
 	}
 	
 	
-
 }
+
+
+
+
+
+
+
+
+
+

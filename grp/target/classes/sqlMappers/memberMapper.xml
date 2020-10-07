@@ -3,7 +3,7 @@
 <mapper namespace="member">
 
 	<insert id="setMember" parameterType="membervo">
-		INSERT INTO member SET 
+		INSERT INTO member SET
 		mem_id = #{memID},
 		mem_pwd = #{memPwd},
 		mem_name = #{memName},
@@ -14,18 +14,19 @@
 	<sql id="searchData">
 		<choose>
 			<when test="searchOpt == 'all'">
-				WHERE mem_id LIKE CONCAT('%', #{words}, '%') OR mem_name LIKE CONCAT('%', #{words}, '%')
+				WHERE mem_name LIKE CONCAT('%', #{words} ,'%') 
+				OR mem_id LIKE CONCAT('%', #{words} ,'%')
 			</when>
 			<otherwise>
-				WHERE ${searchOpt} LIKE CONCAT('%', #{words}, '%')
+				WHERE ${searchOpt} LIKE CONCAT('%', #{words} ,'%')
 			</otherwise>
 		</choose>
 	</sql>
-	
+
 	<select id="getMemberList" parameterType="hashmap" resultType="membervo">
 		SELECT
 			mem_num AS memNum,
-			mem_id AS memID, 
+			mem_id AS memID,
 			mem_pwd AS memPwd,
 			mem_name AS memName,
 			mem_email AS memEmail,
@@ -33,23 +34,41 @@
 			mem_level AS memLevel,
 			mem_confirm AS memConfirm
 		FROM member <include refid="searchData"></include> ORDER BY mem_num DESC
-		<!-- 컬럼명을 model 변수명 지정 -->
 	</select>
 	
 	<select id="getMemberCount" parameterType="hashmap" resultType="int">
 		SELECT COUNT(mem_id) FROM member <include refid="searchData"></include>
 	</select>
 	
-	<select id="idCheck" parameterType="String" resultType="int">
-		SELECT COUNT(mem_id) FROM member WHERE mem_id = #{memID}
-	</select>
-	
 	<update id="setMemConfirm" parameterType="membervo">
 		UPDATE member SET mem_confirm = #{memConfirm} WHERE mem_num = #{memNum}
 	</update>
 	
-	<update id="setMemLevel" parameterType="membervo">
-		UPDATE member SET mem_level = #{memLevel} WHERE mem_num = #{memNum}
-	</update>
 	
+	<select id="checkID" parameterType="String" resultType="int">
+		SELECT COUNT(mem_id) FROM member WHERE mem_id = #{memID}
+	</select>
+	
+	<select id="checkLogin" parameterType="membervo" resultType="membervo">
+		SELECT 
+			mem_id AS memID, 
+			mem_name AS memName,
+			mem_level AS memLevel,
+			mem_confirm AS memConfirm
+		FROM member WHERE mem_id = #{memID} AND mem_pwd = #{memPwd}
+	</select>
+
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

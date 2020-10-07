@@ -12,7 +12,7 @@ import com.example.grp.model.MemberVO;
 
 @Repository
 public class MemberDao {
-	
+
 	@Autowired
 	SqlSession sqlSession;
 	
@@ -24,28 +24,40 @@ public class MemberDao {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("searchOpt", searchOpt);
 		map.put("words", words);
-		
+ 
 		return sqlSession.selectList("member.getMemberList", map);
 	}
+	
 	
 	public int getMemberCount(String searchOpt, String words) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("searchOpt", searchOpt);
 		map.put("words", words);
-		
+ 
 		return sqlSession.selectOne("member.getMemberCount", map);
 	}
 	
-	public void setMemConfirm(MemberVO mvo) {
+	public void memConfirm(MemberVO mvo) {
 		sqlSession.update("member.setMemConfirm", mvo);
 	}
 	
-	public void setMemLevel(MemberVO mvo) {
-		sqlSession.update("member.setMemLevel", mvo);
+	public int checkID(String checkID) {
+		return sqlSession.selectOne("member.checkID", checkID);
 	}
 	
-	public int idCheck(String memID) {
-		return sqlSession.selectOne("member.idCheck", memID);
+	public MemberVO checkLogin(MemberVO mvo) {
+		System.out.println("dao"+mvo);
+		return sqlSession.selectOne("member.checkLogin", mvo);
 	}
-
+	
 }
+
+
+
+
+
+
+
+
+
+
