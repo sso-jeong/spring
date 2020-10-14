@@ -2,51 +2,58 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="register">
 
-	<select id="grpGetBuseo" resultType="com.greenart.grp.model.BuseoVO">
+	<select id="grpGetBuseo"
+		resultType="com.greenart.grp.model.BuseoVO">
 		SELECT * FROM grp_buseo
 	</select>
 
-	<select id="grpGetGrade" resultType="com.greenart.grp.model.GradeVO">
+	<select id="grpGetGrade"
+		resultType="com.greenart.grp.model.GradeVO">
 		SELECT * FROM grp_grade
 	</select>
 
-	<insert id="setEmpRegister" parameterType="com.greenart.grp.model.EmpVO">
+	<insert id="setEmpRegister"
+		parameterType="com.greenart.grp.model.EmpVO">
 		<selectKey keyProperty="ref" order="BEFORE" resultType="int">
-			SELECT CASE WHEN max(emp_num) IS NULL THEN 1
-			ELSE right(max(emp_num), 1) +1 END
-			FROM grp_employee
-			WHERE emp_buseo = #{empBuseoCode}
+			SELECT CASE WHEN max(emp_num) IS NULL THEN 1 ELSE right(max(emp_num),1)+1 END
+			FROM grp_employee WHERE emp_buseo = #{empBuseoCode}
 		</selectKey>
 
 		INSERT INTO grp_employee SET
 		emp_buseo = #{empBuseoCode},
 		emp_grade = #{empGradeCode},
-		emp_enter = #{empEnter},
+		emp_enter =
+		#{empEnter},
 		emp_name = #{empName},
 		emp_pwd = #{empPwd},
-		emp_regdate = now(),
+		emp_regdate =
+		now(),
 		emp_step = #{empStep},
-		emp_num = CONCAT(#{empNum},#{ref})
+		emp_num = CONCAT( #{empNum}, #{ref} )
 	</insert>
 
-	<select id="getEmpNumCheck" parameterType="hashmap" resultType="int">
-		SELECT COUNT(emp_id)
-		FROM grp_employee
-		WHERE emp_num = #{empNum}
-		AND emp_pwd = #{empPwd}
+	<select id="getEmpNumCheck" parameterType="hashmap"
+		resultType="int">
+		SELECT COUNT(emp_id) FROM grp_employee
+		WHERE emp_num = #{empNum} AND emp_pwd = #{empPwd}
 	</select>
 
-	<select id="getEmpInfo" parameterType="hashmap" resultType="com.greenart.grp.model.EmpVO">
+	<select id="getEmpInfo" parameterType="hashmap"
+		resultType="com.greenart.grp.model.EmpVO">
 		SELECT
 		emp_num AS empNum,
 		emp_name AS empName,
 		emp_auth AS empAuth,
 		emp_confirm AS empConfirm,
 		emp_buseo AS empBuseoCode,
-		emp_grade AS empGradeCode
-		FROM grp_employee
-		WHERE emp_num = #{empNum}
-		AND emp_pwd = #{empPwd}
+		emp_grade AS empGradeCode,
+		buseo_name AS empBuseoName,
+		grade_name AS empGradeName
+		FROM grp_employee LEFT JOIN grp_buseo ON emp_buseo =
+		buseo_id
+		LEFT JOIN grp_grade ON emp_grade = grade_id
+
+		WHERE emp_num = #{empNum} AND emp_pwd = #{empPwd}
 	</select>
 </mapper>
 

@@ -22,107 +22,113 @@ import com.greenart.grp.service.comSrv.ComSrv;
 
 @Controller
 public class IDnRegCtr {
-
+	
 	@Autowired
 	IDnRegSrv irSrv;
 	
 	@Autowired
-	ComSrv comSrv;
-
+	ComSrv cSrv;
+	
 	@RequestMapping("")
 	public String Main() {
 		return "main";
 	}
 
 	@RequestMapping(value = "/grp_login", method = RequestMethod.GET)
-	public ModelAndView getgrpLogin() {
-		
-		ComVO cvo = comSrv.getCompany();
-		
+	public ModelAndView getGrpLogin() {
+		ComVO cvo = cSrv.getCompany();
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("comName", cvo.getComName());
 		mav.addObject("comSubName", cvo.getComSubName());
 		mav.setViewName("grp_login");
-		
 		return mav;
 	}
 	
 	@RequestMapping(value = "/grp_logout", method = RequestMethod.GET)
-	public String getgrpLogout(HttpSession session) {
+	public String getGrpLogout(HttpSession session) {
 		irSrv.setLogout(session);
 		return "redirect:/grp_login";
 	}
-
+	
 	@RequestMapping(value = "/grp_login", method = RequestMethod.POST)
-	public ModelAndView setgrpLogin(@ModelAttribute EmpVO evo, HttpSession session) {
-		int resnum = irSrv.getEmpNumCheck(evo);
-		ComVO cvo = comSrv.getCompany();
-		int auth = comSrv.getCompany().getComAuth();
+	public ModelAndView setGrpLogin(@ModelAttribute EmpVO evo, HttpSession session) {
+		int result = irSrv.getEmpNumCheck(evo);
+		ComVO cvo = cSrv.getCompany();
+		int auth = cSrv.getCompany().getComAuth();
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("comName", cvo.getComName());
 		mav.addObject("comSubName", cvo.getComSubName());
 		
-		if (resnum > 0) {
+		String msg;
+		if( result > 0 ) {
 			EmpVO vo = irSrv.getEmpInfo(evo);
-			if (vo.getEmpAuth() >= 10 && vo.getEmpConfirm().equals("Y")) {
+			if( vo.getEmpAuth() >= auth && vo.getEmpConfirm().equals("Y") ) {
 				irSrv.setSession(evo, session);
 				mav.setViewName("redirect:/grp_admin");
-			} else if (vo.getEmpAuth() >= auth && vo.getEmpConfirm().equals("Y")) {
+				
+			}else if( vo.getEmpAuth() >= auth && vo.getEmpConfirm().equals("Y") ) {
 				irSrv.setSession(evo, session);
 				mav.setViewName("redirect:/");
-			} else {
-				mav.addObject("msg", "접속 권한이 없습니다.\n 관리자에게 문의하세요.");
+				
+			}else {
+				msg = "접속 권한이 없습니다.\n관리자에게 문의하세요.";
+				mav.addObject("msg", msg);
 				mav.setViewName("grp_login");
 			}
-		} else {
-			mav.addObject("msg", "사번과 비밀번호를 확인해주세요.");
-			mav.setViewName("grp_login");
+			
+		}else {
+			msg = "등록된 사번이 아닙니다.";
+			mav.addObject("msg", msg);
+			mav.setViewName("grp_login");	
 		}
-		
 		return mav;
 	}
-
+	
 	@RequestMapping(value = "/grp_register", method = RequestMethod.GET)
-	public String getgrpRegister() {
+	public String getGrpRegister() {
 		return "grp_register";
 	}
-
+	
 	@RequestMapping(value = "/grp_register", method = RequestMethod.POST)
-	public String setgrpRegister(@ModelAttribute EmpVO evo) {
-
-		/* 사원번호 만들기(입사년 + 부서코드 + 직급코드 + PK) */
-		int enter = Integer.parseInt(evo.getEmpEnter().substring(0, 4));
-		String buseo = evo.getEmpBuseoCode();
-		String grade = evo.getEmpGradeCode();
-		String eNum = enter + buseo + grade;
+	public String setGrpRegister(@ModelAttribute EmpVO evo) {
+		int enterYear 	= Integer.parseInt(evo.getEmpEnter().substring(0, 4));
+		String bCode 	= evo.getEmpBuseoCode();
+		String gCode	= evo.getEmpGradeCode();
+		
+		String eNum		= enterYear + bCode + gCode;
 		evo.setEmpNum(eNum);
-		/**/
-
-		/* 호봉 : empStep(현재년도 - 입사년도) */
+		System.out.println(evo.getEmpNum());
+		
 		Calendar cal = Calendar.getInstance();
-		int now = cal.get(Calendar.YEAR);
-		int eStep = (now - enter) + 1;
+		int hYear = cal.get(Calendar.YEAR);
+		int eStep = (hYear - enterYear) + 1;
 		evo.setEmpStep(eStep);
-		/**/
-
+		
 		irSrv.setEmpRegister(evo);
-
 		return "redirect:/grp_login";
 	}
-
+	
 	@RequestMapping(value = "/grp_get_buseo", method = RequestMethod.POST)
 	@ResponseBody
 	public List<BuseoVO> grpGetBuseo() {
 		List<BuseoVO> list = irSrv.grpGetBuseo();
 		return list;
 	}
-
+	
 	@RequestMapping(value = "/grp_get_grade", method = RequestMethod.POST)
 	@ResponseBody
 	public List<GradeVO> grpGetGrade() {
 		List<GradeVO> list = irSrv.grpGetGrade();
 		return list;
 	}
-
+	
 }
+
+
+
+
+
+
+
+

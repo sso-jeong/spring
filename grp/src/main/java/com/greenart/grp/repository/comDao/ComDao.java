@@ -8,7 +8,7 @@ import com.greenart.grp.model.ComVO;
 
 @Repository
 public class ComDao {
-	
+
 	@Autowired
 	SqlSession sql;
 	
@@ -19,5 +19,14 @@ public class ComDao {
 	public void setCompany(ComVO cvo) {
 		sql.update("company.setCompany", cvo);
 	}
-
+	
 }
+
+
+
+
+
+
+
+
+

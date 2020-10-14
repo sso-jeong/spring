@@ -2,6 +2,7 @@ package com.greenart.grp.repository.IDnRegDao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,34 +14,44 @@ import com.greenart.grp.model.GradeVO;
 
 @Repository
 public class IDnRegDao {
-
+	
 	@Autowired
 	SqlSession sqlSession;
-
+	
 	public List<BuseoVO> grpGetBuseo() {
 		return sqlSession.selectList("register.grpGetBuseo");
 	}
-
+	
 	public List<GradeVO> grpGetGrade() {
 		return sqlSession.selectList("register.grpGetGrade");
 	}
-
+	
 	public void setEmpRegister(EmpVO evo) {
 		sqlSession.insert("register.setEmpRegister", evo);
 	}
-
+	
 	public int getEmpNumCheck(EmpVO evo) {
-		HashMap<String, String> hs = new HashMap<String, String>();
-		hs.put("empNum", evo.getEmpNum());
-		hs.put("empPwd", evo.getEmpPwd());
-		return sqlSession.selectOne("register.getEmpNumCheck", hs);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("empNum", evo.getEmpNum());
+		map.put("empPwd", evo.getEmpPwd());
+		return sqlSession.selectOne("register.getEmpNumCheck", map);
 	}
-
+	
 	public EmpVO getEmpInfo(EmpVO evo) {
-		HashMap<String, String> hs = new HashMap<String, String>();
-		hs.put("empNum", evo.getEmpNum());
-		hs.put("empPwd", evo.getEmpPwd());
-		return sqlSession.selectOne("register.getEmpInfo", hs);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("empNum", evo.getEmpNum());
+		map.put("empPwd", evo.getEmpPwd());
+		return sqlSession.selectOne("register.getEmpInfo", map);
 	}
-
+	
 }
+
+
+
+
+
+
+
+
+
+

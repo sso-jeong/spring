@@ -1,24 +1,37 @@
 package com.greenart.grp.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class EmpVO {
-	private int empID, empStep, empAuth, ref;
-	private String empEnter, empBuseoCode, empBuseoName, empGradeCode, empGradeName, empNum, empName, empPwd, empPhoto, empHead, empConfirm;
-	private Date empRegDate;
+	private int empID;
+	private String empBuseoCode;
+	private String empBuseoName;
 	
+	private String empGradeCode;
+	private String empGradeName;
+	
+	private String empNum;
+	private String empName;
+	private String empPwd;
+	private String empEnter;
+	private Date empRegdate;
+	private String empConfirm;
+	private String empHead;
+	private int empStep;
+	private int empAuth;
+	private String empPhoto;
+	
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-	public int getRef() {
-		return ref;
+	private int ref; //사원번호 중복을 피하기 위한 변수
+	
+	
+	public int getEmpID() {
+		return empID;
 	}
-	public void setRef(int ref) {
-		this.ref = ref;
-	}
-	public Date getEmpRegDate() {
-		return empRegDate;
-	}
-	public void setEmpRegDate(Date empRegDate) {
-		this.empRegDate = empRegDate;
+	public void setEmpID(int empID) {
+		this.empID = empID;
 	}
 	public String getEmpBuseoCode() {
 		return empBuseoCode;
@@ -44,24 +57,6 @@ public class EmpVO {
 	public void setEmpGradeName(String empGradeName) {
 		this.empGradeName = empGradeName;
 	}
-	public int getEmpID() {
-		return empID;
-	}
-	public void setEmpID(int empID) {
-		this.empID = empID;
-	}
-	public int getEmpStep() {
-		return empStep;
-	}
-	public void setEmpStep(int empStep) {
-		this.empStep = empStep;
-	}
-	public int getEmpAuth() {
-		return empAuth;
-	}
-	public void setEmpAuth(int empAuth) {
-		this.empAuth = empAuth;
-	}
 	public String getEmpNum() {
 		return empNum;
 	}
@@ -80,17 +75,17 @@ public class EmpVO {
 	public void setEmpPwd(String empPwd) {
 		this.empPwd = empPwd;
 	}
-	public String getEmpPhoto() {
-		return empPhoto;
+	public String getEmpEnter() {
+		return empEnter;
 	}
-	public void setEmpPhoto(String empPhoto) {
-		this.empPhoto = empPhoto;
+	public void setEmpEnter(String empEnter) {
+		this.empEnter = empEnter;
 	}
-	public String getEmpHead() {
-		return empHead;
+	public String getEmpRegdate() {
+		return sdf.format(empRegdate);
 	}
-	public void setEmpHead(String empHead) {
-		this.empHead = empHead;
+	public void setEmpRegdate(Date empRegdate) {
+		this.empRegdate = empRegdate;
 	}
 	public String getEmpConfirm() {
 		return empConfirm;
@@ -98,13 +93,47 @@ public class EmpVO {
 	public void setEmpConfirm(String empConfirm) {
 		this.empConfirm = empConfirm;
 	}
-	public String getEmpEnter() {
-		return empEnter;
+	public String getEmpHead() {
+		return empHead;
 	}
-	public void setEmpEnter(String empEnter) {
-		this.empEnter = empEnter;
+	public void setEmpHead(String empHead) {
+		this.empHead = empHead;
 	}
-
-	
-	
+	public int getEmpStep() {
+		return empStep;
+	}
+	public void setEmpStep(int empStep) {
+		this.empStep = empStep;
+	}
+	public int getEmpAuth() {
+		return empAuth;
+	}
+	public void setEmpAuth(int empAuth) {
+		this.empAuth = empAuth;
+	}
+	public String getEmpPhoto() {
+		return empPhoto;
+	}
+	public void setEmpPhoto(String empPhoto) {
+		this.empPhoto = empPhoto;
+	}
+	public int getRef() {
+		return ref;
+	}
+	public void setRef(int ref) {
+		this.ref = ref;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

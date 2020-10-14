@@ -1,6 +1,8 @@
 package com.greenart.grp.service.IDnRegSrv;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -40,20 +42,21 @@ public class IDnRegSrv {
 	
 	public void setSession(EmpVO evo, HttpSession session) {
 		EmpVO vo = irDao.getEmpInfo(evo);
-		if(vo != null) {
+		
+		if( vo != null ) {
+			session.setAttribute("empBuseoName", vo.getEmpBuseoName());
+			session.setAttribute("empGradeName", vo.getEmpGradeName());
+			
 			session.setAttribute("empNum", vo.getEmpNum());
 			session.setAttribute("empName", vo.getEmpName());
 			session.setAttribute("empAuth", vo.getEmpAuth());
 			session.setAttribute("empConfirm", vo.getEmpConfirm());
-			//session.setAttribute("empBuseoCode", vo.getEmpNum());
-			//session.setAttribute("empGradeCode", vo.getEmpNum());
 		}
 	}
 	
 	public void setLogout(HttpSession session) {
 		session.invalidate();
 	}
-	
 }
 
 

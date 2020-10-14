@@ -13,28 +13,33 @@ import com.greenart.grp.service.comSrv.ComSrv;
 @Controller
 @RequestMapping("/company")
 public class ComCtr {
-
+	
 	@Autowired
-	ComSrv comSrv;
+	ComSrv cSrv;
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String getCompany() {
 		return "grp_company/grp_company_main";
 	}
-
+	
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	@ResponseBody
 	public ComVO getCompanyInfo() {
-		ComVO cvo = comSrv.getCompany();
-		
+		ComVO cvo = cSrv.getCompany();
 		return cvo;
 	}
 	
 	@RequestMapping(value = "/grp_company", method = RequestMethod.POST)
 	public String grpCompany(@ModelAttribute ComVO cvo) {
-		comSrv.setCompany(cvo);
+		cSrv.setCompany(cvo);
 		return "grp_company/grp_company_main";
-		
 	}
-
 }
+
+
+
+
+
+
+
+

@@ -8,7 +8,7 @@
     </div>
     <div class="login-wrap">
         <div class="login-box">
-        	<div style="color:#fff;">${msg}</div>
+        	<div style="color:#fff;text-align:center;margin-bottom:5px;">${msg}</div>
             <form method="post" action="${pageContext.request.contextPath}/grp_login" autocomplete="off">
                 <input type="text" name="empNum" id="empNum" placeholder="사원번호를 입력하세요." required autofocus />
                 <input type="password" name="empPwd" id="empPwd" placeholder="비밀번호를 입력하세요." required />
