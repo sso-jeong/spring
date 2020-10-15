@@ -57,6 +57,7 @@ public class IDnRegSrv {
 	public void setLogout(HttpSession session) {
 		session.invalidate();
 	}
+	
 }
 
 

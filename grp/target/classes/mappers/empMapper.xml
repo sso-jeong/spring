@@ -68,7 +68,23 @@
 		UPDATE grp_employee
 		SET emp_auth = #{empAuth} WHERE emp_id = #{empID}
 	</update>
-
+	
+	<select id="getEmpOne" parameterType="String" resultType="com.greenart.grp.model.EmpVO">
+		SELECT
+			emp_id AS empID,
+			emp_buseo AS empBuseoCode,
+			buseo_name
+			AS empBuseoName,
+			emp_grade AS empGradeCode,
+			grade_name AS empGradeName,
+			emp_num AS empNum,
+			emp_name AS empName,
+			emp_enter AS empEnter
+		FROM grp_employee E, grp_buseo B, grp_grade G
+		WHERE E.emp_buseo = B.buseo_id AND E.emp_grade = G.grade_id AND emp_num = #{sessionNum}
+	</select>
+	
+	
 </mapper>
 
 

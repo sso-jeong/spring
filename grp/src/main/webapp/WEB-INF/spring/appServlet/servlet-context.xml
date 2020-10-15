@@ -11,12 +11,25 @@
 	<resources location="/WEB-INF/images/, classpath=/WEB-INF/images/" mapping="/images/**" />
 	<resources location="/WEB-INF/js/, classpath=/WEB-INF/js/" mapping="/js/**" />
 	<resources location="/WEB-INF/css/, classpath=/WEB-INF/css/" mapping="/css/**" />
+	<resources location="/WEB-INF/ckeditor/, classpath=/WEB-INF/ckeditor/" mapping="/ckeditor/**" />
+	<resources location="/WEB-INF/calendar/, classpath=/WEB-INF/calendar/" mapping="/calendar/**" />
 	
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
+		
 	<context:component-scan base-package="com.greenart.grp" />
+	
+	<!-- 업로드 경로 설정 -->
+	<beans:bean class="java.lang.String" id="uploadPath">
+		<beans:constructor-arg value="C:\\upload" />
+	</beans:bean>
+	
+	<!-- 업로드 파일 용량 제한 -->
+	<beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
+		<beans:property name="maxUploadSize" value="10000000" />	
+	</beans:bean>
 </beans:beans>
 
 

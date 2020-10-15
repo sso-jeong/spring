@@ -38,6 +38,15 @@ public class EmpSrv {
 		eDao.setEmpAuthChange(empAuth, empID);
 	}
 	
+	public EmpVO getEmpOne(String sessionNum) {
+		return eDao.getEmpOne(sessionNum);
+	}
+	
+
+	public void setEmpRegOthers(EmpVO evo) {
+		eDao.setEmpRegOthers(evo);
+	}
+	
 }
 
 

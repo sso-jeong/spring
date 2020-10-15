@@ -44,6 +44,7 @@ public class IDnRegDao {
 		return sqlSession.selectOne("register.getEmpInfo", map);
 	}
 	
+	
 }
 
 

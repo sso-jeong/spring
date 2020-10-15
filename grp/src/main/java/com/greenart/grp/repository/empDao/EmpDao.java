@@ -54,6 +54,16 @@ public class EmpDao {
 
 		sql.update("employee.setEmpAuthChange", map);
 	}
+	
+	public EmpVO getEmpOne(String sessionNum) {
+		return sql.selectOne("employee.getEmpOne", sessionNum);
+	}
+	
+	public void setEmpRegOthers(EmpVO evo) {
+		sql.insert("register.setEmpRegOthers", evo);
+	}
+	
+	
 }
 
 
