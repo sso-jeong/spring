@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.greenart.grp.model.BuseoVO;
 import com.greenart.grp.model.EmpVO;
+import com.greenart.grp.model.GradeVO;
 import com.greenart.grp.repository.empDao.EmpDao;
 
 @Service
@@ -14,16 +16,20 @@ public class EmpSrv {
 	@Autowired
 	EmpDao eDao;
 	
-	public List<EmpVO> getEmpList(String searchOpt, String words) {
-		return eDao.getEmpList(searchOpt, words);
+	public List<EmpVO> getEmpList(int start, int end, String searchOpt, String words) {
+		return eDao.getEmpList(start, end, searchOpt, words);
 	}
 	
-	public int getEmpCount() {
-		return eDao.getEmpCount();
+	public int getEmpCount(String searchOpt, String words) {
+		return eDao.getEmpCount(searchOpt, words);
 	}
 	
 	public void setEmpDelete(int eid) {
 		eDao.setEmpDelete(eid);
+	}
+	
+	public void setEmpDeleteAll(int eid) {
+		eDao.setEmpDeleteAll(eid);
 	}
 	
 	public void setEmpHeadChange(String empHead, int empID) {
@@ -46,6 +52,14 @@ public class EmpSrv {
 	public void setEmpRegOthers(EmpVO evo) {
 		eDao.setEmpRegOthers(evo);
 	}
+	
+	public List<BuseoVO> grpGetBuseo() {
+		return eDao.grpGetBuseo();
+	}
+	
+	public List<GradeVO> grpGetGrade() {
+		return eDao.grpGetGrade();
+	}	
 	
 }
 

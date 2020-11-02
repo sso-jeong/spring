@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.greenart.grp.model.BuseoVO;
 import com.greenart.grp.model.EmpVO;
+import com.greenart.grp.model.GradeVO;
+import com.greenart.grp.paging.Pager;
 import com.greenart.grp.service.IDnRegSrv.IDnRegSrv;
 import com.greenart.grp.service.empSrv.EmpSrv;
 
@@ -34,16 +36,39 @@ public class EmpCtr {
 	private String uploadPath;
 
 	@RequestMapping(value = "/grp_employee_list")
-	public ModelAndView empList(@RequestParam(defaultValue = "emp_name") String searchOpt, @RequestParam(defaultValue = "") String words) {
-		ModelAndView mav = new ModelAndView();
+	public ModelAndView empList(@RequestParam(defaultValue = "1") int curPage, @RequestParam(defaultValue = "emp_name") String searchOpt, @RequestParam(defaultValue = "") String words) {
+		ModelAndView mav = new ModelAndView();		
 		
-		List<EmpVO> list = eSrv.getEmpList(searchOpt, words);
-		int count = eSrv.getEmpCount();
+		int count = eSrv.getEmpCount(searchOpt, words);
+		
+		Pager pager = new Pager(count, curPage);
+
+		int start = pager.getPageBegin(); // 0 ~ 10 -> 11 ~ 20 -> 21 ~ 30
+		int end = pager.getPageEnd();		
+		
+		List<EmpVO> list = eSrv.getEmpList(start, end, searchOpt, words);
 		
 		mav.addObject("list", list);
 		mav.addObject("count", count);
 		mav.addObject("searchOpt", searchOpt);
 		mav.addObject("words", words);
+		
+		mav.addObject("start", start); // 게시물 개수 자를 시작번호
+		mav.addObject("end", end); // 게시물 자를 끝번호
+		
+		mav.addObject("blockBegin", pager.getBlockBegin());
+		mav.addObject("blockEnd", pager.getBlockEnd());
+		mav.addObject("curBlock", pager.getCurBlock());
+		mav.addObject("totalBlock", pager.getTotBlock());
+		
+		mav.addObject("prevPage", pager.getPrevPage());
+		mav.addObject("nextPage", pager.getNextPage());
+		mav.addObject("curPage", pager.getCurPage());
+		mav.addObject("totalPage", pager.getTotPage());
+		
+		// 페이지 번호를 클릭했을 때 css active 클래스 처리
+		mav.addObject("selected", pager.getCurPage());
+		
 		mav.setViewName("grp_employee/grp_employee_list");
 		return mav;
 	}
@@ -112,16 +137,43 @@ public class EmpCtr {
 		int eStep = (hYear - enterYear) + 1;
 		evo.setEmpStep(eStep);
 		
-		/* 선택 사원 정보 입력 */
+		/* �꽑�깮 �궗�썝 �젙蹂� �엯�젰 */
 		eSrv.setEmpRegOthers(evo);
-		/* 선택 사원 정보 입력 */
+		/* �꽑�깮 �궗�썝 �젙蹂� �엯�젰 */
 		
-		/* 파일 업로드*/
-		/* 파일 업로드*/
+		/* �뙆�씪 �뾽濡쒕뱶*/
+		/* �뙆�씪 �뾽濡쒕뱶*/
 		
 		return "redirect:/employee/grp_employee_list";
 	}
 	
+	@RequestMapping(value = "/grp_employee_delete_all", method = RequestMethod.POST)
+	@ResponseBody
+	public String grpEmpDelete(@RequestParam(value ="chkArr[]") List<String> chkArr) {
+		//System.out.println(chkArr);
+		
+		int eid;
+		for(String list : chkArr) {
+			eid = Integer.parseInt(list);
+			eSrv.setEmpDeleteAll(eid);
+			
+		}
+		return "";
+	}
+	
+	@RequestMapping(value = "/grp_get_buseo", method = RequestMethod.POST)
+	@ResponseBody
+	public List<BuseoVO> grpGetBuseo() {
+		List<BuseoVO> list = eSrv.grpGetBuseo();
+		return list;
+	}
+	
+	@RequestMapping(value = "/grp_get_grade", method = RequestMethod.POST)
+	@ResponseBody
+	public List<GradeVO> grpGetGrade() {
+		List<GradeVO> list = eSrv.grpGetGrade();
+		return list;
+	}
 	
 }
 

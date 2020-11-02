@@ -91,15 +91,17 @@
 													</td>
 													<td class="td-7 center under bg-gray weight700">부서명</td>
 													<td class="td-13 p-lr3">
-														<input type="text" name="empBuseoCode" id="empBuseoCode" class="input-135" value="${empOne.empBuseoName}"/> 
+														<select name="empBuseoCode" id="empBuseoCode" class="input-135"></select>
+														<%-- <input type="text" name="empBuseoCode" id="empBuseoCode" class="input-135" value="${empOne.empBuseoName}"/>  --%>
 													</td>
 													<td class="td-7 center under bg-gray weight700">직급</td>
 													<td class="td-13 p-lr3">
-														<input type="text" name="empGradeCode" id="empGradeCode" class="input-135" value="${empOne.empGradeName}" /> 
+														<select name="empGradeCode" id="empGradeCode" class="input-135"></select>
+														<%-- <input type="text" name="empGradeCode" id="empGradeCode" class="input-135" value="${empOne.empGradeName}" />  --%>
 													</td>
 													<td class="td-7 center under bg-gray weight700">입사년월</td>
 													<td class="td-13 p-lr3">
-														<input type="text" name="empEnter" id="empEnter" class="input-135" readonly value="${empOne.empEnter}"/> 
+														<input type="date"  max="2020-12-31" min="1970-01-01" name="empEnter" id="empEnter" class="input-135" readonly/> 
 													</td>
 													<td class="td-7 center under bg-gray weight700">사번</td>
 													<td class="td-13 p-lr3">
@@ -330,4 +332,50 @@
 		});
 	});
 </script>
+
+<script>
+	function loadBuseo() {
+		$.ajax({
+			url		: "${pageContext.request.contextPath}/grp_get_buseo",
+			type	: "POST",
+			data	: "",
+			contentType : "application/x-www-form-urlencoded; charset=utf-8",
+			dataType: "json",
+			success	: function(resData) {
+				$.each(resData, function(key, value) {
+					$("#empBuseoCode").append("<option value="+value.buseo_id+">"+value.buseo_name+"</option>");
+				});
+			},
+			error	: function() {
+				alert("시스템 에러");
+			},
+			complete: function() {}
+		});
+	}
+
+	function loadGrade() {
+		$.ajax({
+			url		: "${pageContext.request.contextPath}/grp_get_grade",
+			type	: "POST",
+			data	: "",
+			contentType : "application/x-www-form-urlencoded; charset=utf-8",
+			dataType: "json",
+			success	: function(resData) {
+				$.each(resData, function(key, value) {
+					$("#empGradeCode").append("<option value="+value.grade_id+">"+value.grade_name+"</option>");
+				});
+			},
+			error	: function() {
+				alert("시스템 에러");
+			},
+			complete: function() {}
+		});
+	}
+
+	$(function() {
+		loadBuseo();
+		loadGrade();
+	});
+</script>
+
 </html>

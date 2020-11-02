@@ -39,7 +39,7 @@
 		E.emp_buseo = B.buseo_id AND E.emp_grade
 		= G.grade_id
 		<include refid="search"></include>
-		ORDER BY emp_id DESC
+		ORDER BY emp_id DESC LIMIT #{start}, #{end}
 	</select>
 
 	<select id="getEmpCount" resultType="int">
@@ -47,9 +47,16 @@
 		grp_employee E,grp_buseo B, grp_grade G
 		WHERE E.emp_buseo = B.buseo_id
 		AND E.emp_grade = G.grade_id
+		<include refid="search"></include>
+		ORDER BY emp_id DESC
 	</select>
 
 	<delete id="setEmpDelete" parameterType="int">
+		DELETE FROM grp_employee
+		WHERE emp_id = #{eid}
+	</delete>
+	
+	<delete id="setEmpDeleteAll" parameterType="int">
 		DELETE FROM grp_employee
 		WHERE emp_id = #{eid}
 	</delete>
@@ -82,6 +89,16 @@
 			emp_enter AS empEnter
 		FROM grp_employee E, grp_buseo B, grp_grade G
 		WHERE E.emp_buseo = B.buseo_id AND E.emp_grade = G.grade_id AND emp_num = #{sessionNum}
+	</select>
+	
+	<select id="grpGetBuseo"
+		resultType="com.greenart.grp.model.BuseoVO">
+		SELECT * FROM grp_buseo
+	</select>
+
+	<select id="grpGetGrade"
+		resultType="com.greenart.grp.model.GradeVO">
+		SELECT * FROM grp_grade
 	</select>
 	
 	

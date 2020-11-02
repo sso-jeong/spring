@@ -61,7 +61,7 @@
                         	</div>
                         	<div class="m-t10">
                         		<span class="font14 weight700 noto">
-                        			전체사원수 : ${count}명 (1page/5pages)
+                        			전체사원수 : ${count}명 ( ${curPage}page of ${totalPage}pages )
                         		</span>
                         	</div>
                         	<div>
@@ -104,12 +104,12 @@
                                     	<td colspan="15" class="center font14 weight700">등록된 사원이 없습니다.</td>
                                     </tr>
                            </c:if>         
-							<c:forEach items="${list}" var="emp">
+							<c:forEach items="${list}" var="emp" varStatus="status">
                                     <tr class="center font14">
                                         <td>
-                                        	<input type="checkbox" name="chk" data-uid="${emp.empID}" />
+                                        	<input type="checkbox" name="chk" class="chk" data-uid="${emp.empID}" />
                                         </td>
-                                        <td>${emp.empID}</td>
+                                        <td>${ (count - status.index) - ( (curPage - 1) * end ) }</td>
                                         <td>${emp.empBuseoCode}</td>
                                         <td>${emp.empBuseoName}</td>
                                         <td>${emp.empGradeCode}</td>
@@ -149,24 +149,98 @@
                                     </tr>
                             </c:forEach>
                                 </table>
-                                <div class="page-grp center m-t10">
-                                    <span class="page">
-                                        <a href=""><i class="fas fa-angle-double-left"></i></a>
-                                    </span>
-                                    <span class="page">
-                                        <a href=""><i class="fas fa-angle-left"></i></a>
-                                    </span>
-                                    <span class="page page-active">
-                                        <a href="" class="f6">1</a>
-                                    </span>
-                                    <span class="page"><a href="">2</a></span>
-                                    <span class="page">
-                                        <a href=""><i class="fas fa-angle-right"></i></a>
-                                    </span>
-                                    <span class="page">
-                                        <a href=""><i class="fas fa-angle-double-right"></i></a>
-                                    </span>
-                                </div>
+                                <!-- 페이징 ui 시작 -->
+	                                <c:if test="${count > 0}">
+		                                <div class="page-grp center m-t10">
+		                                
+		                                	<!-- 맨 앞으로 -->
+		                                	<c:choose>
+		                                		<c:when test="${curPage > 1}">
+				                                    	<a href="${pageContext.request.contextPath}/employee/grp_employee_list?curPage=1&searchOpt=${searchOpt}&words${words}">
+				                                			<span class="page">
+				                                       			<i class="fas fa-angle-double-left"></i>
+				                                			</span>
+				                                    	</a>
+				                                </c:when>
+				                                <c:otherwise>
+				                                	<span class="page">
+				                                       <i class="fas fa-angle-double-left"></i></a>
+				                                    </span>
+				                                </c:otherwise>
+		                                    </c:choose>
+		                                	<!-- 맨 앞으로 -->
+		                                	
+		                                	<!-- 한 칸 앞으로 -->
+		                                    <c:choose>
+		                                		<c:when test="${curPage > 1}">
+				                                    <a href="${pageContext.request.contextPath}/employee/grp_employee_list?curPage=${curPage-1}&searchOpt=${searchOpt}&words${words}">
+				                                    	<span class="page">
+				                                       		<i class="fas fa-angle-left"></i>
+				                                       	</span>
+				                                    </a>
+				                                </c:when>
+				                                <c:otherwise>
+				                                	<span class="page">
+				                                       <i class="fas fa-angle-left"></i></a>
+				                                    </span>
+				                                </c:otherwise>
+		                                    </c:choose>
+		                                	<!-- 한 칸 앞으로 -->
+		                                    
+		                                    <!-- 페이지 번호 출력 -->
+		                                    <c:forEach begin="${blockBegin}" end="${blockEnd}" var="num">
+		                                    
+		                                    	<c:if test="${selected == num}">		                                    
+				                                    <span class="page page-active">
+				                                        <a href="#" class="f6">${num}</a>
+				                                    </span>				                                    
+				                                </c:if>
+				                                
+				                                <c:if test="${selected != num}">
+				                                	<a href="${pageContext.request.contextPath}/employee/grp_employee_list?curPage=${num}&searchOpt=${searchOpt}&words${words}">		                                    
+				                                    	<span class="page">${num}</span>	
+				                                    </a>			                                    
+				                                </c:if>
+				                                
+			                                </c:forEach>
+		                                    <!-- 페이지 번호 출력 끝 -->
+		                                    
+		                                    <!-- 한 칸 뒤로 -->
+		                                    <c:choose>
+		                                		<c:when test="${curPage != totalPage}">
+				                                    <a href="${pageContext.request.contextPath}/employee/grp_employee_list?curPage=${curPage+1}&searchOpt=${searchOpt}&words${words}">
+				                                		<span class="page">
+				                                       		<i class="fas fa-angle-right"></i>
+				                                		</span>
+				                                    </a>
+				                                </c:when>
+				                                <c:otherwise>
+				                                	<span class="page">
+				                                       <i class="fas fa-angle-right"></i></a>
+				                                    </span>
+				                                </c:otherwise>
+		                                    </c:choose>
+		                                	<!-- 한 칸 뒤로 -->
+		                                    
+		                                    <!-- 한 칸 뒤로 -->
+		                                    <c:choose>
+		                                		<c:when test="${curPage != totalPage}">
+				                                    <a href="${pageContext.request.contextPath}/employee/grp_employee_list?curPage=${totalPage}&searchOpt=${searchOpt}&words${words}">
+				                                		<span class="page">
+				                                       		<i class="fas fa-angle-double-right"></i>
+				                                		</span>
+				                                    </a>
+				                                </c:when>
+				                                <c:otherwise>
+				                                	<span class="page">
+				                                       <i class="fas fa-angle-double-right"></i></a>
+				                                    </span>
+				                                </c:otherwise>
+		                                    </c:choose>
+		                                	<!-- 한 칸 뒤로 -->
+		                                </div>
+		                            </c:if>
+                                <!-- 페이징 ui 끝 -->
                             </div>
                         </div>
                     </div>
@@ -347,19 +421,41 @@
 
 		
 	}		
-	
+</script>
 
+<script>
+
+	$(function(){
+		$("#deleteAll").click(function(){
+			var msg = "선택하신 정보를 삭제합니다.\n삭제 후에는 복원할 수 없습니다.";
+			if (confirm(msg)){
+				//alert("성공");
+				var chkArray = new Array();
+				$(".chk:checked").each(function(){
+					chkArray.push($(this).attr("data-uid"));
+				});
+				//alert(chkArray);
+
+
+				$.ajax({
+					url		: "${pageContext.request.contextPath}/employee/grp_employee_delete_all",
+					type	: "POST",
+					data	: {chkArr : chkArray},
+					success : function(resData){
+						if(resData == "success") {
+							alert("선택하신 정보가 삭제되었습니다.");
+						}
+						
+					},
+					error	: function(){
+						alert("삭제에 실패했습니다.");
+					},
+					complete: function(){
+						window.location.reload();
+					}
+				});
+			}
+		});
+	});	
 </script>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
