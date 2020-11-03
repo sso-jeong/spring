@@ -22,8 +22,7 @@
 		SELECT
 		emp_id AS empID,
 		emp_buseo AS empBuseoCode,
-		buseo_name
-		AS empBuseoName,
+		buseo_name AS empBuseoName,
 		emp_grade AS empGradeCode,
 		grade_name AS empGradeName,
 		emp_num AS empNum,

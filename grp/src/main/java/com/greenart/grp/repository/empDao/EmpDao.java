@@ -22,7 +22,7 @@ public class EmpDao {
 		map.put("searchOpt", searchOpt);
 		map.put("words", words);
 		map.put("start", start);
-		map.put("end", end);
+		map.put("end", end); 
 		
 		return sql.selectList("employee.getEmpList", map);
 	}

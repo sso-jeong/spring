@@ -101,7 +101,7 @@
 													</td>
 													<td class="td-7 center under bg-gray weight700">입사년월</td>
 													<td class="td-13 p-lr3">
-														<input type="date"  max="2020-12-31" min="1970-01-01" name="empEnter" id="empEnter" class="input-135" readonly/> 
+														<input type="date" name="empEnter" id="empEnter" class="input-135" />
 													</td>
 													<td class="td-7 center under bg-gray weight700">사번</td>
 													<td class="td-13 p-lr3">
