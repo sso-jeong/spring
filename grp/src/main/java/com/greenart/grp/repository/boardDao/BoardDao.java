@@ -60,8 +60,11 @@ public class BoardDao {
 		return sql.selectOne("board.getBoardChk", boardCode);
 	}
 	
-	public List<BoardVO> getBoardList() {
-		return sql.selectList("board.getBoardList");
+	public List<BoardVO> getBoardList(int start, int end) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		return sql.selectList("board.getBoardList", map);
 	}
 	
 	public void setBoardDelete(String boardCode) {
@@ -69,7 +72,7 @@ public class BoardDao {
 	}
 	
 	public void dropArticleTbl(String boardCode) {
-		String str = "drop table git_article_"+boardCode;
+		String str = "drop table grp_article_"+boardCode;		
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("str", str);
@@ -78,12 +81,16 @@ public class BoardDao {
 	}
 	
 	public void dropCommentTbl(String boardCode) {
-		String str = "drop table git_comment_"+boardCode;	
+		String str = "drop table grp_comment_"+boardCode;
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("str", str);
 		
 		sql.insert("board.dropCommentTbl", map);
+	}
+	
+	public int getBoardCount() {
+		return sql.selectOne("board.getBoardCount");
 	}
 }
 

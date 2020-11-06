@@ -72,13 +72,13 @@ public class IDnRegCtr {
 				mav.setViewName("redirect:/");
 				
 			}else {
-				msg = "ì ‘ì† ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤.\nê´€ë¦¬ìì—ê²Œ ë¬¸ì˜í•˜ì„¸ìš”.";
+				msg = "Á¢¼Ó ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.\n°ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ¼¼¿ä.";
 				mav.addObject("msg", msg);
 				mav.setViewName("grp_login");
 			}
 			
 		}else {
-			msg = "ë“±ë¡ëœ ì‚¬ë²ˆì´ ì•„ë‹™ë‹ˆë‹¤.";
+			msg = "µî·ÏµÈ »ç¹øÀÌ ¾Æ´Õ´Ï´Ù.";
 			mav.addObject("msg", msg);
 			mav.setViewName("grp_login");	
 		}

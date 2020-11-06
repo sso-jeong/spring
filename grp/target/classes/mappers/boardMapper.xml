@@ -32,7 +32,7 @@
 	<select id="getBoardList" resultType="com.greenart.grp.model.BoardVO">
 		SELECT * FROM 
 			grp_board A, grp_buseo B WHERE A.boardGrp = B.buseo_id 
-		ORDER BY bid DESC
+		ORDER BY bid DESC LIMIT #{start}, #{end}
 	</select>
 	
 	<delete id="setBoardDelete" parameterType="String">
@@ -40,12 +40,16 @@
 	</delete>
 	
 	<insert id="dropArticleTbl">
-		${str}	
+		${str}
 	</insert>
 	
 	<insert id="dropCommentTbl">
-		${str}	
+		${str}
 	</insert>
+	
+	<select id="getBoardCount" resultType="int">
+		SELECT COUNT(bid) FROM grp_board
+	</select>
 
 </mapper>
 
